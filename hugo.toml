@@ -113,7 +113,14 @@ theme = "LoveIt"
       darkTheme = "dark"
     [params.page.share]
       enable = false
-
+  [params.analytics]
+    # LoveIt DELETED | 0.3.1
+    enable = true
+    # Google Analytics
+    [params.analytics.google]
+      id = "G-RY8RJSNY84"
+      # LoveIt NEW | 0.3.1 whether to respect the browser’s “do not track” setting
+      respectDoNotTrack = false
 
   # Home page config
   [params.home]
