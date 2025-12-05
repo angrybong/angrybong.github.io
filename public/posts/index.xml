@@ -3,25 +3,19 @@
         <title>All Posts - 분노의 기록</title>
         <link>http://localhost:1313/posts/</link>
         <description>All Posts | 분노의 기록</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 05 Dec 2025 13:23:41 &#43;0900</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>First_post</title>
-    <link>http://localhost:1313/posts/first_post/</link>
-    <pubDate>Fri, 05 Dec 2025 13:23:41 &#43;0900</pubDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko</language><lastBuildDate>Fri, 05 Dec 2025 14:21:28 &#43;0900</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Google Cloud Professional Cloud Architect의로의 여정</title>
+    <link>http://localhost:1313/posts/google-cloud-certification/</link>
+    <pubDate>Fri, 05 Dec 2025 14:21:28 &#43;0900</pubDate>
     <author>angrybong</author>
-    <guid>http://localhost:1313/posts/first_post/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>🤔 3. 작성 가이드</title>
-    <link>http://localhost:1313/posts/second_post/</link>
-    <pubDate>Sat, 03 Apr 2021 00:00:00 &#43;0000</pubDate>
-    <author>angrybong</author>
-    <guid>http://localhost:1313/posts/second_post/</guid>
-    <description><![CDATA[<h2 id="1-포스트-추가하기">1. 포스트 추가하기</h2>
-<p><code>contents/post</code> 경로에 새로운 마크다운 파일을 생성하여 여러분의 글을 추가할 수 있습니다.</p>
-<h3 id="1-1-포스트-파일-구조">1-1. 포스트 파일 구조</h3>
-<p>새로운 문서를 추가하는 방법에는 두가지가 있습니다. 첫번째는 디렉토리 없이 문서를 생성하는 방법입니다. 만약 여러분이 Javascript 에 관한 문서를 생성한다면, <code>about-javascript.md</code> 파일을 <code>contents/posts</code> 디렉토리에 추가할 수 있습니다.</p>
-<p>두번째 방법은 먼저 디렉토리를 생성한 뒤, 디렉토리 안에 <code>index.md</code> 파일을 추가하는 것 입니다. 이 방법은 문서 내에 여러 이미지 파일 등 부수적인 파일 여러개가 포함되었을 때 유용합니다.</p>]]></description>
+    <guid>http://localhost:1313/posts/google-cloud-certification/</guid>
+    <description><![CDATA[<p></p>
+<p>GCP(Google Gloud Platform)라고 많이 불리었으나 현재는 Google에서 점차 Platform라는 단어를 없애고 있다.</p>
+<p><a href="https://cloud.google.com/learn/certification?hl=ko" target="_blank" rel="noopener noreffer ">google cloud 자격증 소개</a>글을 보면 Cloud Architect, Cloud Database Engineer, Cloud Developer, Data Engineer등이 있고, 여기에서 Foundational, Associate, Professional로 난이도가 나뉘는게 아닌 각각 자격증의 종류별로 난이도에 속하게 된다.</p>
+<p>Cloud Architect를 도전하려고 하며 이에 대한 여정을 남기려하니 도움이 되는 분들이 있으면 하며 글을 작성하려는데&hellip;</p>
+<p>잘 될까?
+Professional이라 응시비용이 너무 비싸다&hellip; 몇번떨어지면 살 수 있는 것들이 한두개도 아니라 철저히 준비하고 응시해야 할 거 같다.
+2026목표로 삼은것인데 또 작심삼일하지는 않으련지&hellip; 😂</p>]]></description>
 </item>
 </channel>
 </rss>

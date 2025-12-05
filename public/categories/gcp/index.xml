@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GCP on 분노의 기록</title>
+    <link>http://localhost:1313/categories/gcp/</link>
+    <description>Recent content in GCP on 분노의 기록</description>
+    <generator>Hugo</generator>
+    <language>ko</language>
+    <lastBuildDate>Fri, 05 Dec 2025 14:21:28 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/gcp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Google Cloud Professional Cloud Architect의로의 여정</title>
+      <link>http://localhost:1313/posts/google-cloud-certification/</link>
+      <pubDate>Fri, 05 Dec 2025 14:21:28 +0900</pubDate>
+      <guid>http://localhost:1313/posts/google-cloud-certification/</guid>
+      <description>&lt;p&gt;GCP(Google Gloud Platform)라고 많이 불리었으나 현재는 Google에서 점차 Platform라는 단어를 없애고 있다.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://cloud.google.com/learn/certification?hl=ko&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;google cloud 자격증 소개&lt;/a&gt;글을 보면 Cloud Architect, Cloud Database Engineer, Cloud Developer, Data Engineer등이 있고, 여기에서 Foundational, Associate, Professional로 난이도가 나뉘는게 아닌 각각 자격증의 종류별로 난이도에 속하게 된다.&lt;/p&gt;&#xA;&lt;p&gt;Cloud Architect를 도전하려고 하며 이에 대한 여정을 남기려하니 도움이 되는 분들이 있으면 한다.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
