@@ -7,7 +7,7 @@ categories: ["google cloud", "GCP"]
 toc: false
 ---
 
-![공부](/images/Gemini_Generated_Image_dghwkbdghwkbdghw.png)
+![공부](/images/Gemini_Generated_Image_wnqz6nwnqz6nwnqz_lowsize.png)
 
 
 GCP(Google Gloud Platform)라고 많이 불리었으나 현재는 Google에서 점차 Platform라는 단어를 없애고 있다.
