@@ -41,47 +41,6 @@ theme = "LoveIt"
     url = "/about/"
     title = ""
 
-[params.page.comment.giscus]
-  # You can refer to the official documentation of giscus to use the following configuration.
-  enable = true
-  repo = "angrybong/angrybong.github.io"
-  repoId = "R_kgDOQi6eAw"
-  category = "Announcements"
-  categoryId = "DIC_kwDOQi6eA84CzbC8"
-  # automatically adapt the current theme i18n configuration when empty
-  lang = "ko"
-  mapping = "pathname"
-  reactionsEnabled = "1"
-  emitMetadata = "0"
-  inputPosition = "bottom"
-  lazyLoading = false
-  lightTheme = "light"
-  darkTheme = "dark"
-
-
-# Author config
-[params.author]
-    name = "angrybong"
-
-[params.header]
-    # desktop header mode ["fixed", "normal", "auto"]
-    desktopMode = "fixed"
-    # mobile header mode ["fixed", "normal", "auto"]
-    mobileMode = "auto"
-    # LoveIt NEW | 0.2.0 Header title config
-    [params.header.title]
-      # URL of the LOGO
-      logo = "/images/goose.jpeg"
-      # title name
-      name = "분노의 기록"
-      # you can add extra information before the name (HTML format is supported), such as icons
-      pre = ""
-      # you can add extra information after the name (HTML format is supported), such as icons
-      post = ""
-      # LoveIt NEW | 0.2.5 whether to use typeit animation for title name
-      typeit = false
-
-
 [params]
   # site default theme ["auto", "light", "dark"]
   defaultTheme = "light"
@@ -99,27 +58,67 @@ theme = "LoveIt"
   # website images for Open Graph and Twitter Cards
   images = ["/logo.png"]
 
-# LoveIt NEW | 0.2.0 App icon config
-[params.app]
-  # optional site title override for the app when added to an iOS home screen or Android launcher
-  title = "화난 블로그"
-  # whether to omit favicon resource links
-  noFavicon = false
-  # modern SVG favicon to use in place of older style .png and .ico files
-  svgFavicon = "/images/favicon-32x32.png"
-  # Android browser theme color
-  themeColor = "#ffffff"
-  # Safari mask icon color
-  iconColor = "#5bbad5"
-  # Windows v8-10 tile color
-  tileColor = "#da532c"
+  # LoveIt NEW | 0.2.0 App icon config
+  [params.app]
+    # optional site title override for the app when added to an iOS home screen or Android launcher
+    title = "화난 블로그"
+    # whether to omit favicon resource links
+    noFavicon = false
+    # modern SVG favicon to use in place of older style .png and .ico files
+    svgFavicon = "/images/favicon-32x32.png"
+    # Android browser theme color
+    themeColor = "#ffffff"
+    # Safari mask icon color
+    iconColor = "#5bbad5"
+    # Windows v8-10 tile color
+    tileColor = "#da532c"
+  # Author config
+  [params.author]
+    name = "angrybong"
+  [params.header]
+    # desktop header mode ["fixed", "normal", "auto"]
+    desktopMode = "fixed"
+    # mobile header mode ["fixed", "normal", "auto"]
+    mobileMode = "auto"
+    # LoveIt NEW | 0.2.0 Header title config
+  [params.header.title]
+    # URL of the LOGO
+    logo = "/images/goose.jpeg"
+    # title name
+    name = "분노의 기록"
+    # you can add extra information before the name (HTML format is supported), such as icons
+    pre = ""
+    # you can add extra information after the name (HTML format is supported), such as icons
+    post = ""
+    # LoveIt NEW | 0.2.5 whether to use typeit animation for title name
+    typeit = false
+  [params.page]
+    [params.page.comment]
+      enable = true
+    [params.page.comment.giscus]
+      # You can refer to the official documentation of giscus to use the following configuration.
+      enable = true
+      repo = "angrybong/angrybong.github.io"
+      repoId = "R_kgDOQi6eAw"
+      category = "Announcements"
+      categoryId = "DIC_kwDOQi6eA84CzbC8"
+      # automatically adapt the current theme i18n configuration when empty
+      lang = "ko"
+      mapping = "pathname"
+      reactionsEnabled = "1"
+      emitMetadata = "0"
+      inputPosition = "bottom"
+      lazyLoading = false
+      lightTheme = "light"
+      darkTheme = "dark"
 
-# Home page config
-[params.home]
+
+  # Home page config
+  [params.home]
     # LoveIt NEW | 0.2.0 amount of RSS pages
     rss = 10
-# Home page profile
-[params.home.profile]
+  # Home page profile
+  [params.home.profile]
     enable = true
     # Gravatar Email for preferred avatar in home page
     gravatarEmail = ""
@@ -135,8 +134,8 @@ theme = "LoveIt"
     social = true
     # LoveIt NEW | 0.2.0 disclaimer (HTML format is supported)
     disclaimer = ""
-# Home page posts
-[params.home.posts]
+  # Home page posts
+  [params.home.posts]
     enable = true
     # special amount of posts in each home posts page
     paginate = 6
