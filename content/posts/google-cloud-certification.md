@@ -1,6 +1,6 @@
 ---
 date: '2025-12-05T14:21:28+09:00'
-draft: true
+draft: false
 title: 'Google Cloud Professional Cloud Architect의로의 여정'
 tags: ["google cloud", "google cloud certification"]
 categories: ["google cloud", "GCP"]
