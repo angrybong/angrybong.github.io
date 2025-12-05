@@ -111,6 +111,8 @@ theme = "LoveIt"
       lazyLoading = false
       lightTheme = "light"
       darkTheme = "dark"
+    [params.page.share]
+      enable = false
 
 
   # Home page config
