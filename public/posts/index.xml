@@ -1,0 +1,27 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>All Posts - My New Hugo Site</title>
+        <link>http://localhost:1313/posts/</link>
+        <description>All Posts | My New Hugo Site</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 05 Dec 2025 13:23:41 &#43;0900</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>First_post</title>
+    <link>http://localhost:1313/posts/first_post/</link>
+    <pubDate>Fri, 05 Dec 2025 13:23:41 &#43;0900</pubDate>
+    <author>xxxx</author>
+    <guid>http://localhost:1313/posts/first_post/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>🤔 3. 작성 가이드</title>
+    <link>http://localhost:1313/posts/second_post/</link>
+    <pubDate>Sat, 03 Apr 2021 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://localhost:1313/posts/second_post/</guid>
+    <description><![CDATA[<h2 id="1-포스트-추가하기">1. 포스트 추가하기</h2>
+<p><code>contents/post</code> 경로에 새로운 마크다운 파일을 생성하여 여러분의 글을 추가할 수 있습니다.</p>
+<h3 id="1-1-포스트-파일-구조">1-1. 포스트 파일 구조</h3>
+<p>새로운 문서를 추가하는 방법에는 두가지가 있습니다. 첫번째는 디렉토리 없이 문서를 생성하는 방법입니다. 만약 여러분이 Javascript 에 관한 문서를 생성한다면, <code>about-javascript.md</code> 파일을 <code>contents/posts</code> 디렉토리에 추가할 수 있습니다.</p>
+<p>두번째 방법은 먼저 디렉토리를 생성한 뒤, 디렉토리 안에 <code>index.md</code> 파일을 추가하는 것 입니다. 이 방법은 문서 내에 여러 이미지 파일 등 부수적인 파일 여러개가 포함되었을 때 유용합니다.</p>]]></description>
+</item>
+</channel>
+</rss>

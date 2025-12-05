@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Writing-Guide on My New Hugo Site</title>
+    <link>http://localhost:1313/tags/writing-guide/</link>
+    <description>Recent content in Writing-Guide on My New Hugo Site</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 03 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/writing-guide/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>🤔 3. 작성 가이드</title>
+      <link>http://localhost:1313/posts/second_post/</link>
+      <pubDate>Sat, 03 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/second_post/</guid>
+      <description>&lt;h2 id=&#34;1-포스트-추가하기&#34;&gt;1. 포스트 추가하기&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;contents/post&lt;/code&gt; 경로에 새로운 마크다운 파일을 생성하여 여러분의 글을 추가할 수 있습니다.&lt;/p&gt;&#xA;&lt;h3 id=&#34;1-1-포스트-파일-구조&#34;&gt;1-1. 포스트 파일 구조&lt;/h3&gt;&#xA;&lt;p&gt;새로운 문서를 추가하는 방법에는 두가지가 있습니다. 첫번째는 디렉토리 없이 문서를 생성하는 방법입니다. 만약 여러분이 Javascript 에 관한 문서를 생성한다면, &lt;code&gt;about-javascript.md&lt;/code&gt; 파일을 &lt;code&gt;contents/posts&lt;/code&gt; 디렉토리에 추가할 수 있습니다.&lt;/p&gt;&#xA;&lt;p&gt;두번째 방법은 먼저 디렉토리를 생성한 뒤, 디렉토리 안에 &lt;code&gt;index.md&lt;/code&gt; 파일을 추가하는 것 입니다. 이 방법은 문서 내에 여러 이미지 파일 등 부수적인 파일 여러개가 포함되었을 때 유용합니다.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
