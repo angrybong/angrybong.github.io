@@ -118,7 +118,8 @@ theme = "LoveIt"
     enable = true
     # Google Analytics
     [params.analytics.google]
-      id = "G-RY8RJSNY84"
+      # id = "G-RY8RJSNY84"
+      id = "GTM-5TWMTQQ8"
       # LoveIt NEW | 0.3.1 whether to respect the browser’s “do not track” setting
       respectDoNotTrack = false
 
