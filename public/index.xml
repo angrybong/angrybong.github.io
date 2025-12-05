@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>My New Hugo Site</title>
+        <title>분노의 기록</title>
         <link>http://localhost:1313/</link>
-        <description>This is my cool site</description>
+        <description>descriptiondescription</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 05 Dec 2025 13:23:41 &#43;0900</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>First_post</title>
     <link>http://localhost:1313/posts/first_post/</link>
     <pubDate>Fri, 05 Dec 2025 13:23:41 &#43;0900</pubDate>
-    <author>xxxx</author>
+    <author>angrybong</author>
     <guid>http://localhost:1313/posts/first_post/</guid>
     <description><![CDATA[]]></description>
 </item>
@@ -17,7 +17,7 @@
     <title>🤔 3. 작성 가이드</title>
     <link>http://localhost:1313/posts/second_post/</link>
     <pubDate>Sat, 03 Apr 2021 00:00:00 &#43;0000</pubDate>
-    <author>xxxx</author>
+    <author>angrybong</author>
     <guid>http://localhost:1313/posts/second_post/</guid>
     <description><![CDATA[<h2 id="1-포스트-추가하기">1. 포스트 추가하기</h2>
 <p><code>contents/post</code> 경로에 새로운 마크다운 파일을 생성하여 여러분의 글을 추가할 수 있습니다.</p>
