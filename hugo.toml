@@ -137,7 +137,7 @@ theme = "LoveIt"
     # LoveIt CHANGED | 0.2.7 title shown in home page (HTML format is supported)
     # title = "title!!!!!!!"
     # subtitle shown in home page (HTML format is supported)
-    subtitle = "도움이 되시길..."
+    subtitle = "하나씩 천천히..."
     # whether to use typeit animation for subtitle
     typeit = true
     # whether to show social links
