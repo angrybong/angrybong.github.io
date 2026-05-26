@@ -1,6 +1,7 @@
 ---
 layout: post
-category: springbatch
+title: Spring Batch 돌아가게만 말고, 흐름으로 이해하기
+category: spring-batch
 ---
 
 Spring Batch를 충분히 이해하지 못한 채 실무에서 운영하다 보면 비슷한 느낌을 받는다.
