@@ -3,7 +3,7 @@ layout: post
 category: springbatch
 ---
 
-<!-- {% include image.html file="spring-batch-deepdive-cover.png" alt="Spring Batch Deep Dive cover" %} -->
+{% include image.html file="spring-batch-deepdive-cover.png" alt="Spring Batch Deep Dive cover" %}
 
 Spring Batch를 충분히 이해하지 못한 채 실무에서 운영하다 보면 비슷한 느낌을 받는다.
 
