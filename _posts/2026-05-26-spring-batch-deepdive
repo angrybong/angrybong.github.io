@@ -1,0 +1,31 @@
+---
+title: Spring Batch는 왜 이렇게 어려울까?
+updated: 2026-05-20 21:00
+layout: post
+category: spring batch
+---
+
+{% include image.html file="spring-batch-deepdive-cover.png" alt="Spring Batch Deep Dive cover" %}
+
+Spring Batch를 충분히 이해하지 못한 채 실무에서 운영하다 보면 비슷한 느낌을 받는다.
+
+블로그나 공식 문서를 따라 `Job`, `Step`, `Chunk`를 붙여서 일단 돌아가게는 만들 수 있다.
+근데 막상 뭔가 이상해지면 왜 그런지 감이 안 온다.
+
+그 답답함에서 시작한 글이다.
+
+## 왜 이렇게 막힐까
+
+Spring Batch를 한 줄로 표현하면 “데이터를 나눠 읽고, 처리하고, 다시 돌릴 수 있게 만드는 흐름”이다.
+이걸 흐름으로 안 보고 기능 목록처럼만 보면, 성능은 왜 느려지는지, 실패한 작업은 어디서부터 다시 해야 하는지, 테스트는 왜 이렇게 귀찮은지 전부 흐릿해진다.
+
+## 앞으로 뭘 볼 건가
+
+이제 작성할 포스트들에서는 그 흐름을 제대로 짚어보려 한다.
+
+- `Job`과 `Step`이 어떻게 엮이는지
+- `Chunk`가 왜 중요한지
+- `skip`과 `retry`가 어디까지 책임지는지
+- 배치가 왜 실무에서 자꾸 까다로워지는지
+
+이런 것들을 하나씩 정리해볼 생각이다.
