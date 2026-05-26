@@ -3,8 +3,6 @@ layout: post
 category: springbatch
 ---
 
-<!-- {% include image.html file="spring-batch-deepdive-cover.png" alt="Spring Batch Deep Dive cover" %} -->
-
 Spring Batch를 충분히 이해하지 못한 채 실무에서 운영하다 보면 비슷한 느낌을 받는다.
 
 블로그나 공식 문서를 따라 `Job`, `Step`, `Chunk`를 붙여서 일단 돌아가게는 만들 수 있다.
