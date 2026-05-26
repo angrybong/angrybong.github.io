@@ -41,6 +41,22 @@ body {
 
 h2, h3, h4, h5, h6 { margin-top: 3rem; }
 
+h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 1.2rem 0 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
 hr { margin: 2rem 0; }
 
 p { margin: 1rem 0; }
@@ -53,6 +69,30 @@ li { margin: 0.4rem 0; }
   max-width: 640px;
   margin: 0 auto;
   padding: 4rem 2rem;
+}
+
+.home-profile {
+  margin-bottom: 2rem;
+}
+
+.home-avatar {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 1rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+    display: block;
+  }
+}
+
+.home-subtitle {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 hr {
@@ -72,8 +112,11 @@ table, th, td {
 }
 
 code {
-  color: white;
-  background: black;
+  color: #222;
+  background: #f2f2f2;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 0.1rem 0.3rem;
 }
 
 div.highlighter-rouge code {
@@ -81,6 +124,9 @@ div.highlighter-rouge code {
   overflow-x: auto;
   white-space: pre-wrap;
   padding: 1rem;
+  color: inherit;
+  background: #f7f7f7;
+  border-radius: 0;
 }
 
 blockquote {
