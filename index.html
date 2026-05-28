@@ -1,2 +1,27 @@
-<!doctype html><html lang=ko-kr><head><meta name=generator content="Hugo 0.152.2"><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=google-site-verification content="R-Iz6d-W8Gq4PM8HpxcNgT2L-bm5iqTnhWwdpfP74d8"><title>BongDevLog</title><link rel="shortcut icon" type=image/x-icon href=/><link rel=stylesheet href=/css/main.8a14b10045820a388240ef773338446ff4697b286a1bf87e60382971eebb02a88968d8f9f199584a301596e4d930beb73947c90b7aaf01b63249722f6b771f90.css integrity="sha512-ihSxAEWCCjiCQO93MzhEb/RpeyhqG/h+YDgpce67AqiJaNj58ZlYSjAVluTZML63OUfJC3qvAbYySXIva3cfkA=="></head><body a=light><main class=page-content aria-label=Content><div class=w><div class=home-profile><div class=home-avatar><a href=/about/ title=About><img src="https://github.com/angrybong.png?size=256" alt=BongDevLog></a></div></div><div class=home-post-list><ul><li><span>2026-05-26</span>
-<a href=/spring-batch-deepdive/>Spring Batch 돌아가게만 말고, 흐름으로 이해하기</a></li></ul></div><footer class=footer>© 2026 AngryBong<br>Powered by <a href=https://gohugo.io/>Hugo</a> and <a href=https://github.com/hanwenguo/hugo-theme-nostyleplease>no style, please</a></footer></div></main></body></html>
+<!doctype html><html lang=ko-kr><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Spring Batch 학습 가이드 (Hugo Draft)
+Fast Campus 「실무를 위한 Spring Batch의 모든 것」 강의를 기반으로 한 개인 학습 노트입니다.
+모든 글은 draft: true 로 설정되어 Hugo 빌드 시 기본적으로 배포되지 않습니다.
+Hugo에 붙이는 방법
+
+
+이 폴더의 .md 파일을 Hugo 사이트의 content/ 아래로 복사합니다.
+content/
+  study/
+    spring-batch/
+      _index.md
+      01-reader-performance.md
+      ...
+
+
+로컬에서 draft 포함 미리보기:
+hugo server -D
+
+
+공개 블로그로 전환할 때는 front matter에서 draft: false 로 변경하고, 학습 가이드 톤을 공개용 글로 다듬습니다."><meta name=google-site-verification content="R-Iz6d-W8Gq4PM8HpxcNgT2L-bm5iqTnhWwdpfP74d8"><title></title><link rel="shortcut icon" type=image/x-icon href=/><link rel=stylesheet href=/css/main.8a14b10045820a388240ef773338446ff4697b286a1bf87e60382971eebb02a88968d8f9f199584a301596e4d930beb73947c90b7aaf01b63249722f6b771f90.css integrity="sha512-ihSxAEWCCjiCQO93MzhEb/RpeyhqG/h+YDgpce67AqiJaNj58ZlYSjAVluTZML63OUfJC3qvAbYySXIva3cfkA=="></head><body a=light><main class=page-content aria-label=Content><div class=w><a class=back-link href=/>..</a><article><h1></h1><h1 id=spring-batch-학습-가이드-hugo-draft>Spring Batch 학습 가이드 (Hugo Draft)</h1><p>Fast Campus <strong>「실무를 위한 Spring Batch의 모든 것」</strong> 강의를 기반으로 한 <strong>개인 학습 노트</strong>입니다.<br>모든 글은 <code>draft: true</code> 로 설정되어 Hugo 빌드 시 기본적으로 <strong>배포되지 않습니다</strong>.</p><h2 id=hugo에-붙이는-방법>Hugo에 붙이는 방법</h2><ol><li><p>이 폴더의 <code>.md</code> 파일을 Hugo 사이트의 <code>content/</code> 아래로 복사합니다.</p><pre tabindex=0><code>content/
+  study/
+    spring-batch/
+      _index.md
+      01-reader-performance.md
+      ...
+</code></pre></li><li><p>로컬에서 draft 포함 미리보기:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>hugo server -D
+</span></span></code></pre></div></li><li><p>공개 블로그로 전환할 때는 front matter에서 <code>draft: false</code> 로 변경하고, 학습 가이드 톤을 공개용 글로 다듬습니다.</p></li></ol><h2 id=파일-구성>파일 구성</h2><table><thead><tr><th>파일</th><th>주제</th><th>강의 파트</th></tr></thead><tbody><tr><td><code>_index.md</code></td><td>시리즈 개요·로드맵</td><td>전체</td></tr><tr><td><code>01-reader-performance.md</code></td><td>Reader 성능 (OFFSET / Keyset / Cursor)</td><td>Part 02 CH01</td></tr><tr><td><code>02-processor-writer-tuning.md</code></td><td>Processor & Writer 병목·튜닝</td><td>Part 02 CH02</td></tr><tr><td><code>03-partition-step.md</code></td><td>Partition Step</td><td>Part 02 CH03</td></tr><tr><td><code>04-reprocessable-batch-design.md</code></td><td>재처리 가능한 배치 설계</td><td>Part 03 CH01</td></tr><tr><td><code>05-http-page-item-reader.md</code></td><td>HTTP Page ItemReader</td><td>Part 03 CH02</td></tr><tr><td><code>06-batch-testing-guide.md</code></td><td>Batch 테스트 전략</td><td>Part 03 CH03</td></tr><tr><td><code>appendix-curriculum-map.md</code></td><td>전체 커리큘럼 ↔ 가이드 매핑</td><td>—</td></tr></tbody></table><h2 id=작성-원칙>작성 원칙</h2><ul><li><strong>학습 가이드</strong>: 강의 시청 중 메모·질문·실험 결과를 채워 넣는 용도</li><li><strong>블로그 전환</strong>: 각 파일 하단 <code>블로그 전환 체크리스트</code>를 참고해 공개용 글로 승격</li></ul></article><script src=https://giscus.app/client.js data-repo=angrybong/angrybong.github.io data-repo-id=R_kgDOSoCfPw data-category=General data-category-id=DIC_kwDOSoCfP84C99AD data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=light data-lang=ko crossorigin=anonymous async></script></div></main></body></html>
