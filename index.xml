@@ -5,7 +5,8 @@
 &lt;p&gt;그 답답함에서 시작한 글이다.&lt;/p&gt;
 &lt;h2 id="왜-이렇게-막힐까"&gt;왜 이렇게 막힐까&lt;/h2&gt;
 &lt;p&gt;Spring Batch를 한 줄로 표현하면 “데이터를 나눠 읽고, 처리하고, 다시 돌릴 수 있게 만드는 흐름”이다.
-이걸 흐름으로 안 보고 기능 목록처럼만 보면, 성능은 왜 느려지는지, 실패한 작업은 어디서부터 다시 해야 하는지, 테스트는 왜 이렇게 귀찮은지 전부 흐릿해진다.&lt;/p&gt;</description></item><item><title/><link>https://angrybong.github.io/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>angrybbong@gmail.com (AngryBong)</author><guid>https://angrybong.github.io/</guid><description>&lt;h1 id="spring-batch-학습-가이드-hugo-draft"&gt;Spring Batch 학습 가이드 (Hugo Draft)&lt;/h1&gt;
+이걸 흐름으로 안 보고 기능 목록처럼만 보면, 성능은 왜 느려지는지, 실패한 작업은 어디서부터 다시 해야 하는지, 테스트는 왜 이렇게 귀찮은지 전부 흐릿해진다.&lt;/p&gt;</description></item><item><title/><link>https://angrybong.github.io/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>angrybbong@gmail.com (AngryBong)</author><guid>https://angrybong.github.io/</guid><description>&lt;p&gt;draft: true&lt;/p&gt;
+&lt;h1 id="spring-batch-학습-가이드-hugo-draft"&gt;Spring Batch 학습 가이드 (Hugo Draft)&lt;/h1&gt;
 &lt;p&gt;Fast Campus &lt;strong&gt;「실무를 위한 Spring Batch의 모든 것」&lt;/strong&gt; 강의를 기반으로 한 &lt;strong&gt;개인 학습 노트&lt;/strong&gt;입니다.&lt;br&gt;
 모든 글은 &lt;code&gt;draft: true&lt;/code&gt; 로 설정되어 Hugo 빌드 시 기본적으로 &lt;strong&gt;배포되지 않습니다&lt;/strong&gt;.&lt;/p&gt;
 &lt;h2 id="hugo에-붙이는-방법"&gt;Hugo에 붙이는 방법&lt;/h2&gt;
