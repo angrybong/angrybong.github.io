@@ -1,4 +1,1 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://angrybong.github.io/sitemap.xml
