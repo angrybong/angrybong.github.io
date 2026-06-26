@@ -1,39 +1,68 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>https://angrybong.github.io/</loc>
-<lastmod>2026-06-26T12:22:02.000Z</lastmod>
-<changefreq>weekly</changefreq>
-<priority>1</priority>
-</url>
-<url>
-<loc>https://angrybong.github.io/posts</loc>
-<lastmod>2026-06-26T12:22:02.000Z</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>
-<url>
-<loc>https://angrybong.github.io/posts/alacritty-windows-wsl-tmux</loc>
-<lastmod>2026-06-26T12:22:02.000Z</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>
-<url>
-<loc>https://angrybong.github.io/posts/sap-rfc-methods</loc>
-<lastmod>2026-06-26T12:22:02.000Z</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>
-<url>
-<loc>https://angrybong.github.io/posts/spring-batch-deepdive</loc>
-<lastmod>2026-06-26T12:22:02.000Z</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>
-<url>
-<loc>https://angrybong.github.io/colophon</loc>
-<lastmod>2026-06-26T12:22:02.000Z</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://angrybong.github.io/</loc>
+    <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/categories/</loc>
+    <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/posts/</loc>
+    <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/tags/rfc/</loc>
+    <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/tags/sap/</loc>
+    <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/categories/sap/</loc>
+    <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/sap-rfc-methods/</loc>
+    <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/tags/spring/</loc>
+    <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/tags/</loc>
+    <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/tags/alacritty/</loc>
+    <lastmod>2026-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/categories/terminal/</loc>
+    <lastmod>2026-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/tags/terminal/</loc>
+    <lastmod>2026-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/tags/tmux/</loc>
+    <lastmod>2026-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/tags/wsl/</loc>
+    <lastmod>2026-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/alacritty-windows-wsl-tmux/</loc>
+    <lastmod>2026-06-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/tags/batch/</loc>
+    <lastmod>2024-05-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/spring-batch-deepdive/</loc>
+    <lastmod>2024-05-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/categories/spring-batch/</loc>
+    <lastmod>2024-05-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/tags/spring-batch/</loc>
+    <lastmod>2024-05-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://angrybong.github.io/search/</loc>
+  </url><url>
+    <loc>https://angrybong.github.io/series/</loc>
+  </url><url>
+    <loc>https://angrybong.github.io/about/</loc>
+  </url>
 </urlset>
