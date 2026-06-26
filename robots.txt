@@ -1,4 +1,4 @@
-User-agent: *
+User-Agent: *
 Allow: /
 
 Sitemap: https://angrybong.github.io/sitemap.xml
