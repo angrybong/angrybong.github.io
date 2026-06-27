@@ -5,10 +5,10 @@
     <loc>https://angrybong.github.io/</loc>
     <lastmod>2026-06-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://angrybong.github.io/categories/</loc>
+    <loc>https://angrybong.github.io/posts/</loc>
     <lastmod>2026-06-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://angrybong.github.io/posts/</loc>
+    <loc>https://angrybong.github.io/categories/</loc>
     <lastmod>2026-06-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://angrybong.github.io/tags/rfc/</loc>
@@ -58,11 +58,5 @@
   </url><url>
     <loc>https://angrybong.github.io/tags/spring-batch/</loc>
     <lastmod>2024-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://angrybong.github.io/search/</loc>
-  </url><url>
-    <loc>https://angrybong.github.io/series/</loc>
-  </url><url>
-    <loc>https://angrybong.github.io/about/</loc>
   </url>
 </urlset>
