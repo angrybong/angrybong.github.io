@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Categories on AngryBong</title>
-    <link>https://angrybong.github.io/categories/</link>
-    <description>Recent content in Categories on AngryBong</description>
-    <generator>Hugo</generator>
-    <language>ko-KR</language>
-    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://angrybong.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>SAP</title>
-      <link>https://angrybong.github.io/categories/sap/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://angrybong.github.io/categories/sap/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Terminal</title>
-      <link>https://angrybong.github.io/categories/terminal/</link>
-      <pubDate>Mon, 08 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://angrybong.github.io/categories/terminal/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Spring-Batch</title>
-      <link>https://angrybong.github.io/categories/spring-batch/</link>
-      <pubDate>Sun, 26 May 2024 00:00:00 +0000</pubDate>
-      <guid>https://angrybong.github.io/categories/spring-batch/</guid>
-      <description></description>
-    </item>
-  </channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+	<channel>
+		<title>Categories on AngryBong</title>
+		<link>https://angrybong.github.io/categories/</link>
+		<description>Recent content in Categories on AngryBong</description>
+		<generator>Hugo -- 0.152.2</generator>
+		<language>ko-KR</language>
+		<lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
+		<atom:link href="https://angrybong.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+		
+		
+		<item>
+			<title>SAP</title>
+			<link>https://angrybong.github.io/categories/sap/</link>
+			<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate><author>AngryBong</author><guid>https://angrybong.github.io/categories/sap/</guid>
+			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[]]></content>
+		</item>
+		
+		<item>
+			<title>Terminal</title>
+			<link>https://angrybong.github.io/categories/terminal/</link>
+			<pubDate>Mon, 08 Jun 2026 00:00:00 +0000</pubDate><author>AngryBong</author><guid>https://angrybong.github.io/categories/terminal/</guid>
+			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[]]></content>
+		</item>
+		
+		<item>
+			<title>Spring-Batch</title>
+			<link>https://angrybong.github.io/categories/spring-batch/</link>
+			<pubDate>Sun, 26 May 2024 00:00:00 +0000</pubDate><author>AngryBong</author><guid>https://angrybong.github.io/categories/spring-batch/</guid>
+			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[]]></content>
+		</item>
+		
+	</channel>
 </rss>
