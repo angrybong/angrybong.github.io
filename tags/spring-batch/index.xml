@@ -19,18 +19,16 @@
 <p>블로그나 공식 문서를 따라 <code>Job</code>, <code>Step</code>, <code>Chunk</code>를 붙여서 일단 돌아가게는 만들 수 있다.
 근데 막상 뭔가 이상해지면 왜 그런지 감이 안 온다.</p>
 <p>그 답답함에서 시작한 글이다.</p>
-<h2 id="왜-이렇게-막힐까">왜 이렇게 막힐까<a href="#%ec%99%9c-%ec%9d%b4%eb%a0%87%ea%b2%8c-%eb%a7%89%ed%9e%90%ea%b9%8c" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-      stroke-linecap="round" stroke-linejoin="round" class="feather">
-      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
-      <line x1="8" y1="12" x2="16" y2="12"></line>
-   </svg></a></h2>
+<h2 id="왜-이렇게-막힐까">
+  왜 이렇게 막힐까
+  <a class="heading-anchor" href="#%ec%99%9c-%ec%9d%b4%eb%a0%87%ea%b2%8c-%eb%a7%89%ed%9e%90%ea%b9%8c" aria-label="왜 이렇게 막힐까 바로가기">#</a>
+</h2>
 <p>Spring Batch를 한 줄로 표현하면 “데이터를 나눠 읽고, 처리하고, 다시 돌릴 수 있게 만드는 흐름”이다.
 이걸 흐름으로 안 보고 기능 목록처럼만 보면, 성능은 왜 느려지는지, 실패한 작업은 어디서부터 다시 해야 하는지, 테스트는 왜 이렇게 귀찮은지 전부 흐릿해진다.</p>
-<h2 id="앞으로-뭘-볼-건가">앞으로 뭘 볼 건가<a href="#%ec%95%9e%ec%9c%bc%eb%a1%9c-%eb%ad%98-%eb%b3%bc-%ea%b1%b4%ea%b0%80" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-      stroke-linecap="round" stroke-linejoin="round" class="feather">
-      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
-      <line x1="8" y1="12" x2="16" y2="12"></line>
-   </svg></a></h2>
+<h2 id="앞으로-뭘-볼-건가">
+  앞으로 뭘 볼 건가
+  <a class="heading-anchor" href="#%ec%95%9e%ec%9c%bc%eb%a1%9c-%eb%ad%98-%eb%b3%bc-%ea%b1%b4%ea%b0%80" aria-label="앞으로 뭘 볼 건가 바로가기">#</a>
+</h2>
 <p>이제 작성할 포스트들에서는 그 흐름을 제대로 짚어보려 한다.</p>
 <ul>
 <li><code>Job</code>과 <code>Step</code>이 어떻게 엮이는지</li>
