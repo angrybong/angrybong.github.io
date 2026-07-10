@@ -1,431 +1,49 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
-	<channel>
-		<title>AngryBong</title>
-		<link>https://angrybong.github.io/</link>
-		<description>Recent content on AngryBong</description>
-		<generator>Hugo -- 0.152.2</generator>
-		<language>ko-KR</language>
-		<lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
-		<atom:link href="https://angrybong.github.io/index.xml" rel="self" type="application/rss+xml" />
-		
-		
-		<item>
-			<title>SAP RFC 연동 방식에 대하여</title>
-			<link>https://angrybong.github.io/sap-rfc-methods/</link>
-			<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate><author>AngryBong</author><guid>https://angrybong.github.io/sap-rfc-methods/</guid>
-			<description><![CDATA[SAP RFC 연동 방식을 동기, 비동기, 트랜잭션, 큐 관점에서 정리한 글]]></description><content type="text/html" mode="escaped"><![CDATA[<p>SAP RFC 연동을 처음 보면 용어부터 헷갈린다.</p>
-<p>RFC라는 말은 많이 보이는데, 조금 더 들어가면 <code>sRFC</code>, <code>aRFC</code>, <code>tRFC</code>, <code>qRFC</code>, <code>bgRFC</code> 같은 이름이 나온다.
-다 비슷하게 SAP와 외부 시스템이 함수를 호출하는 방식처럼 보이는데, 막상 각각의 차이를 설명하려고 하면 말이 잘 정리되지 않는다.</p>
-<p>나도 처음에는 단순히 이렇게만 이해했다.</p>
-<ul>
-<li><code>sRFC</code>는 동기</li>
-<li><code>aRFC</code>는 비동기</li>
-<li><code>tRFC</code>는 트랜잭션</li>
-<li><code>qRFC</code>는 큐</li>
-<li><code>bgRFC</code>는 뭔가 더 최신 방식</li>
-</ul>
-<p>틀린 말은 아닌데, 이렇게만 이해하면 실제 연동 방식을 고를 때 애매해진다.
-중요한 건 이름보다 “이 연동에서 무엇을 보장해야 하는가”다.</p>
-<p>먼저 전체 차이를 간단히 놓고 보면 이렇다.</p>
-<table>
-  <thead>
-      <tr>
-          <th>방식</th>
-          <th>호출 성격</th>
-          <th>재시도·중복</th>
-          <th>순서</th>
-          <th>핵심</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>sRFC</code></td>
-          <td>동기</td>
-          <td>별도 설계 필요</td>
-          <td>해당 없음</td>
-          <td>호출 결과를 바로 받아야 할 때</td>
-      </tr>
-      <tr>
-          <td><code>aRFC</code></td>
-          <td>호출 후 제어권 반환</td>
-          <td>보장 약함</td>
-          <td>보장 약함</td>
-          <td>병렬 호출이나 대기 시간 감소가 필요할 때</td>
-      </tr>
-      <tr>
-          <td><code>tRFC</code></td>
-          <td>비동기 트랜잭션</td>
-          <td>TID 기준 중복 방지·재시도</td>
-          <td>여러 LUW 순서 미보장</td>
-          <td>요청이 사라지면 안 될 때</td>
-      </tr>
-      <tr>
-          <td><code>qRFC</code></td>
-          <td>큐 기반 비동기</td>
-          <td>tRFC 기반</td>
-          <td>큐 기준 보장</td>
-          <td>처리 순서가 중요할 때</td>
-      </tr>
-      <tr>
-          <td><code>bgRFC</code></td>
-          <td>background unit 기반</td>
-          <td>관리 기능 개선</td>
-          <td>모델에 따라 제어</td>
-          <td>tRFC/qRFC 후속 방식</td>
-      </tr>
-  </tbody>
-</table>
-<h2 id="spring에서-sap-rfc를-만나는-지점">
-  Spring에서 SAP RFC를 만나는 지점
-  <a class="heading-anchor" href="#spring%ec%97%90%ec%84%9c-sap-rfc%eb%a5%bc-%eb%a7%8c%eb%82%98%eb%8a%94-%ec%a7%80%ec%a0%90" aria-label="Spring에서 SAP RFC를 만나는 지점 바로가기">#</a>
-</h2>
-<p>Spring 애플리케이션에서 SAP를 연동하는 방법이 RFC만 있는 것은 아니다.
-SAP 쪽에서 OData나 REST 형태의 API를 제공한다면 일반적인 HTTP API처럼 호출하는 방식도 가능하다.</p>
-<p>다만 이 글에서 보려는 것은 RFC 기반 연동이다.
-Java에서 SAP RFC를 호출할 때는 대표적으로 <code>SAP Java Connector</code>, 줄여서 <code>SAP JCo</code>를 사용해 SAP의 RFC Function Module을 호출한다.
-Spring이 SAP와 직접 대화한다기보다는, Spring 애플리케이션 안에서 이런 커넥터를 통해 SAP RFC를 호출하는 구조에 가깝다.</p>
-<p>그래서 SAP 연동을 볼 때는 두 층을 나눠서 보는 편이 좋다.</p>
-<ul>
-<li>애플리케이션 구현 관점: JCo를 어떻게 설정하고 호출할 것인가</li>
-<li>업무 연동 관점: sRFC, tRFC, qRFC, bgRFC 중 어떤 보장이 필요한가</li>
-</ul>
-<p>이 글에서 보는 것은 두 번째에 가깝다.
-즉 Spring에서 어떤 라이브러리를 쓰느냐보다, RFC 방식마다 어떤 흐름과 보장을 갖는지 정리해보려 한다.</p>
-<h2 id="rfc는-결국-함수-호출이다">
-  RFC는 결국 함수 호출이다
-  <a class="heading-anchor" href="#rfc%eb%8a%94-%ea%b2%b0%ea%b5%ad-%ed%95%a8%ec%88%98-%ed%98%b8%ec%b6%9c%ec%9d%b4%eb%8b%a4" aria-label="RFC는 결국 함수 호출이다 바로가기">#</a>
-</h2>
-<p>RFC는 Remote Function Call의 약자다.
-말 그대로 멀리 있는 함수를 호출하는 방식이다.</p>
-<p>SAP 안에 있는 Function Module을 외부 시스템이 호출할 수도 있고, 반대로 SAP가 외부 시스템 쪽으로 호출을 보낼 수도 있다.
-그래서 RFC를 이해할 때는 네트워크 통신이라는 관점보다, “업무 함수를 어디에서 실행하고 결과를 어떻게 받을 것인가”로 보는 편이 더 쉽다.</p>
-<p>문제는 모든 업무가 같은 방식으로 호출되면 안 된다는 점이다.</p>
-<p>어떤 업무는 호출 즉시 결과가 필요하다.
-어떤 업무는 지금 당장 결과가 없어도 된다.
-어떤 업무는 실패하면 반드시 다시 보내야 한다.
-어떤 업무는 순서가 틀어지면 안 된다.
-어떤 업무는 중복으로 실행되면 큰 문제가 된다.</p>
-<p>이 차이 때문에 RFC 방식이 나뉜다.</p>
-<h2 id="srfc-결과를-바로-받아야-할-때">
-  sRFC: 결과를 바로 받아야 할 때
-  <a class="heading-anchor" href="#srfc-%ea%b2%b0%ea%b3%bc%eb%a5%bc-%eb%b0%94%eb%a1%9c-%eb%b0%9b%ec%95%84%ec%95%bc-%ed%95%a0-%eb%95%8c" aria-label="sRFC: 결과를 바로 받아야 할 때 바로가기">#</a>
-</h2>
-<p><code>sRFC</code>는 synchronous RFC다.
-가장 직관적인 방식이다.</p>
-<p>호출자가 SAP 함수를 호출하고, SAP가 처리한 결과를 받을 때까지 기다린다.
-일반적인 API 호출과 비슷하게 생각하면 된다.</p>
-<p>예를 들어 가격을 조회하거나, 재고를 확인하거나, 사용자가 화면에서 바로 결과를 봐야 하는 업무라면 동기 방식이 자연스럽다.
-호출한 쪽은 결과를 기다리고, 성공했는지 실패했는지 즉시 판단한다.</p>
-<p>장점은 단순하다는 것이다.
-흐름을 추적하기 쉽고, 호출 결과를 바로 응답에 반영할 수 있다.</p>
-<p>단점도 명확하다.
-SAP 응답이 느리면 호출한 쪽도 같이 느려진다.
-SAP가 일시적으로 장애가 나면 사용자 요청도 같이 실패하기 쉽다.</p>
-<p>그래도 즉시 결과가 필요한 업무라면 sRFC가 기본값에 가깝다.
-비동기가 더 멋있어 보인다고 해서 무조건 비동기로 바꾸면 오히려 업무 흐름이 복잡해진다.</p>
-<h2 id="arfc-기다리지-않고-병렬로-보낼-때">
-  aRFC: 기다리지 않고 병렬로 보낼 때
-  <a class="heading-anchor" href="#arfc-%ea%b8%b0%eb%8b%a4%eb%a6%ac%ec%a7%80-%ec%95%8a%ea%b3%a0-%eb%b3%91%eb%a0%ac%eb%a1%9c-%eb%b3%b4%eb%82%bc-%eb%95%8c" aria-label="aRFC: 기다리지 않고 병렬로 보낼 때 바로가기">#</a>
-</h2>
-<p><code>aRFC</code>는 asynchronous RFC다.
-호출을 보낸 뒤 제어권이 호출자에게 바로 돌아오는 방식이다.</p>
-<p>여러 작업을 병렬로 던져야 하거나, 호출자가 SAP 처리를 끝까지 기다릴 필요가 없을 때 사용할 수 있다.
-동기 호출보다 대기 시간을 줄일 수 있다는 장점이 있다.</p>
-<p>다만 aRFC를 “내구성 있는 비동기 처리”로 이해하면 곤란하다.
-<a href="https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/48/88068ad9134076e10000000a42189d/content.htm">SAP 문서</a>에서도 aRFC는 이름과 달리 완전한 비동기 통신으로 보기는 어렵다고 설명한다.
-호출 대상 서버는 요청을 받을 수 있어야 하고, 호출 데이터가 나중 재처리를 위해 데이터베이스에 안정적으로 쌓이는 방식도 아니다.</p>
-<p>그래서 “결과를 안 기다려도 된다”는 이유만으로 aRFC를 선택하면 안 된다.
-실패했을 때 다시 보낼 것인지, 이미 처리된 요청이 중복으로 들어가면 어떻게 할 것인지까지 같이 봐야 한다.</p>
-<h2 id="trfc-실패해도-한-번만-처리되어야-할-때">
-  tRFC: 실패해도 한 번만 처리되어야 할 때
-  <a class="heading-anchor" href="#trfc-%ec%8b%a4%ed%8c%a8%ed%95%b4%eb%8f%84-%ed%95%9c-%eb%b2%88%eb%a7%8c-%ec%b2%98%eb%a6%ac%eb%90%98%ec%96%b4%ec%95%bc-%ed%95%a0-%eb%95%8c" aria-label="tRFC: 실패해도 한 번만 처리되어야 할 때 바로가기">#</a>
-</h2>
-<p><code>tRFC</code>는 transactional RFC다.
-비동기 호출이지만 트랜잭션 성격을 가진다.</p>
-<p>핵심은 TID(Transaction ID)다.
-SAP는 TID를 기준으로 이 요청이 이미 처리된 것인지, 다시 처리해야 하는 것인지 판단할 수 있다.
-그래서 네트워크 문제나 일시적인 장애가 있어도 나중에 재시도할 수 있고, 같은 요청이 중복 실행되는 것을 막는 데 도움이 된다.</p>
-<p>이 방식은 “지금 바로 응답을 받을 필요는 없지만, 요청이 그냥 사라지면 안 되는 업무”에 어울린다.</p>
-<p>예를 들어 어떤 전송 작업이 실패했다고 해서 그냥 사라지면 안 되는 경우가 있다.
-사용자는 다음 화면으로 넘어가도 되지만, 뒤에서는 SAP에 반드시 반영되어야 하는 데이터라면 단순 비동기보다 tRFC 쪽이 더 맞다.
-다만 여기서 말하는 “처리되어야 한다”는 것은 목적지가 영원히 죽어 있어도 무조건 성공한다는 뜻은 아니다.
-네트워크 오류나 일시적인 장애가 있으면 재시도하고, 같은 TID를 기준으로 중복 실행을 막는다는 의미에 가깝다.</p>
-<p>또 하나 구분할 점이 있다.
-tRFC는 하나의 LUW(Logical Unit of Work) 안에 묶인 호출을 같은 트랜잭션 단위로 다룰 수 있지만, 여러 LUW가 애플리케이션이 의도한 순서대로 처리되는 것까지 보장하는 방식은 아니다.
-여러 요청이 반드시 들어온 순서대로 처리되어야 한다면 큐 개념이 필요해진다.</p>
-<h2 id="qrfc-순서가-중요할-때">
-  qRFC: 순서가 중요할 때
-  <a class="heading-anchor" href="#qrfc-%ec%88%9c%ec%84%9c%ea%b0%80-%ec%a4%91%ec%9a%94%ed%95%a0-%eb%95%8c" aria-label="qRFC: 순서가 중요할 때 바로가기">#</a>
-</h2>
-<p><code>qRFC</code>는 queued RFC다.
-이름 그대로 큐를 사용하는 RFC다.</p>
-<p>tRFC에 큐 개념이 더해졌다고 보면 이해하기 쉽다.
-요청을 큐에 넣고, 정해진 순서대로 처리하게 만든다.</p>
-<p>순서가 중요한 업무에서는 이 차이가 크다.
-예를 들어 생성, 변경, 취소 같은 이벤트가 섞여 들어오는데 처리 순서가 바뀌면 데이터가 이상해질 수 있다.
-취소가 먼저 처리되고 생성이 나중에 처리되는 식의 상황은 피해야 한다.</p>
-<p>이럴 때 qRFC는 큐를 통해 순서를 제어한다.</p>
-<p>대신 큐를 쓴다는 건 운영 포인트가 늘어난다는 뜻이기도 하다.
-연동하는 쪽에서 SAP 내부 큐를 직접 관리하는 것은 아니지만, 어떤 큐에서 지연이 생겼는지, 실패한 요청을 누가 어떤 기준으로 재처리할 것인지는 SAP 운영 쪽과 맞춰둬야 한다.
-순서 보장은 결국 운영 절차까지 같이 따라와야 한다.</p>
-<h2 id="bgrfc-background-unit-기반의-후속-방식">
-  bgRFC: background unit 기반의 후속 방식
-  <a class="heading-anchor" href="#bgrfc-background-unit-%ea%b8%b0%eb%b0%98%ec%9d%98-%ed%9b%84%ec%86%8d-%eb%b0%a9%ec%8b%9d" aria-label="bgRFC: background unit 기반의 후속 방식 바로가기">#</a>
-</h2>
-<p><code>bgRFC</code>는 Background Remote Function Call이다.
-tRFC와 qRFC를 대체하고 개선하는 후속 방식으로 소개된다.</p>
-<p>처음 들으면 이름이 낯설다.
-나도 <code>sRFC</code>, <code>aRFC</code>, <code>tRFC</code>, <code>qRFC</code>까지는 자주 봤는데 <code>bgRFC</code>는 상대적으로 덜 익숙했다.</p>
-<p>bgRFC의 핵심은 background unit이다.
-기존 tRFC가 TID 중심으로 트랜잭션을 다룬다면, bgRFC는 하나 이상의 호출을 background unit 단위로 다루고 그 실행 상태를 관리한다.</p>
-<p>이 방식은 비동기 연동에서 필요한 것들을 더 체계적으로 다룬다.</p>
-<ul>
-<li>실패한 작업 재시도</li>
-<li>중복 실행 방지</li>
-<li>처리 상태 관리</li>
-<li>큐 기반 순서 제어</li>
-<li>대량 비동기 처리</li>
-</ul>
-<p>즉 bgRFC는 “더 빠른 비동기 호출”이라기보다, 비동기 트랜잭션 처리를 SAP 쪽에서 더 안정적으로 관리하기 위한 방식에 가깝다.</p>
-<p>그렇다고 bgRFC가 항상 정답이라는 뜻은 아니다.
-대체와 개선이라는 표현 때문에 “그러면 이제 bgRFC만 쓰면 되는 것 아닌가”라고 생각하기 쉬운데, 연동 방식은 최신 여부보다 업무가 요구하는 보장에 맞춰 골라야 한다.</p>
-<p>즉시 결과가 필요한 조회성 업무라면 여전히 sRFC가 자연스럽다.
-반대로 장애가 나도 나중에 다시 처리해야 하고, 중복과 순서까지 신경 써야 하는 업무라면 bgRFC를 검토할 수 있다.</p>
-<h2 id="그래서-어떤-방식을-골라야-할까">
-  그래서 어떤 방식을 골라야 할까
-  <a class="heading-anchor" href="#%ea%b7%b8%eb%9e%98%ec%84%9c-%ec%96%b4%eb%96%a4-%eb%b0%a9%ec%8b%9d%ec%9d%84-%ea%b3%a8%eb%9d%bc%ec%95%bc-%ed%95%a0%ea%b9%8c" aria-label="그래서 어떤 방식을 골라야 할까 바로가기">#</a>
-</h2>
-<p>RFC 방식을 고를 때는 이름보다 질문이 먼저다.</p>
-<p>먼저 호출한 쪽이 결과를 바로 받아야 하는지 봐야 한다.
-바로 받아야 한다면 sRFC가 기본이다.
-사용자가 화면에서 결과를 기다리고 있다면 비동기로 바꾸는 순간 상태 관리가 훨씬 복잡해진다.</p>
-<p>다음은 실패했을 때 요청이 사라져도 되는지다.
-사라지면 안 된다면 단순 비동기만으로는 부족하다.
-재시도와 중복 방지 기준이 필요하다.
-이때 tRFC나 bgRFC 같은 트랜잭션 성격의 방식이 후보가 된다.</p>
-<p>그다음은 순서다.
-순서가 바뀌어도 되는 업무라면 큐가 필요 없을 수 있다.
-하지만 순서가 바뀌면 데이터 정합성이 깨지는 업무라면 qRFC나 bgRFC의 큐 처리를 봐야 한다.</p>
-<p>마지막으로 운영이다.
-비동기와 큐는 사용자 요청을 빠르게 끝내는 데 도움을 주지만, 대신 뒤에서 밀린 작업을 봐야 한다.
-어디에서 상태를 확인할지, 실패한 요청을 누가 재처리할지, 중복과 장애를 어떤 기준으로 볼지까지 맞춰두지 않으면 문제가 나중에 더 복잡하게 돌아온다.</p>
-<h2 id="정리">
-  정리
-  <a class="heading-anchor" href="#%ec%a0%95%eb%a6%ac" aria-label="정리 바로가기">#</a>
-</h2>
-<p>SAP RFC 방식은 단순히 동기냐 비동기냐로 끝나지 않는다.</p>
-<p>각 방식은 서로 다른 질문에 답한다.</p>
-<ul>
-<li><code>sRFC</code>: 지금 결과가 필요한가</li>
-<li><code>aRFC</code>: 호출자를 기다리게 하지 않아도 되는가</li>
-<li><code>tRFC</code>: 실패해도 재시도하고 중복 실행을 피해야 하는가</li>
-<li><code>qRFC</code>: 처리 순서가 중요한가</li>
-<li><code>bgRFC</code>: 비동기 트랜잭션을 background unit으로 안정적으로 관리해야 하는가</li>
-</ul>
-<p>결국 좋은 선택은 최신 방식을 고르는 게 아니라, 업무가 요구하는 보장을 정확히 고르는 것이다.
-RFC 방식은 이름을 외우는 것보다 실패, 재처리, 중복, 순서를 기준으로 보면 훨씬 이해하기 쉽다.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>가벼운 터미널을 찾다가 Alacritty에 tmux를 붙였다</title>
-			<link>https://angrybong.github.io/alacritty-windows-wsl-tmux/</link>
-			<pubDate>Mon, 08 Jun 2026 00:00:00 +0000</pubDate><author>AngryBong</author><guid>https://angrybong.github.io/alacritty-windows-wsl-tmux/</guid>
-			<description><![CDATA[Windows 노트북에서 Alacritty를 WSL과 tmux 기반으로 쓰기 위한 설정 기록]]></description><content type="text/html" mode="escaped"><![CDATA[<p>WezTerm을 한동안 잘 쓰고 있었다. 기능도 많고 설정도 편했다. 문제는 성능이 좋지 않은 윈도우 노트북이었다. 가끔 CPU가 생각보다 높게 올라갔다. 터미널 하나 때문에 노트북이 버거워지면 계속 신경 쓰이게 된다. 그래서 다른 터미널을 찾다가 Alacritty를 알게 됐다.</p>
-<h2 id="alacritty를-봤을-때-든-생각">
-  Alacritty를 봤을 때 든 생각
-  <a class="heading-anchor" href="#alacritty%eb%a5%bc-%eb%b4%a4%ec%9d%84-%eb%95%8c-%eb%93%a0-%ec%83%9d%ea%b0%81" aria-label="Alacritty를 봤을 때 든 생각 바로가기">#</a>
-</h2>
-<p>Alacritty는 단순하다. 그리고 빠르다. 이 두 가지는 마음에 들었다. 다만 너무 단순했다. 탭이 없고, 화면 분할도 자체 기능으로 제공하지 않는다. 가벼운 건 좋은데 매일 쓰기에는 불편하지 않을까 싶었다.</p>
-<p>그러다 <a href="https://johngrib.github.io/wiki/tool/alacritty/">John Grib 님의 Alacritty 글</a>을 봤다.</p>
-<p>핵심은 간단했다.</p>
-<ul>
-<li>Alacritty는 터미널 에뮬레이터 역할만 가볍게 한다.</li>
-<li>탭과 화면 분할은 tmux가 담당한다.</li>
-<li>Alacritty 단축키로 tmux의 탭과 화면 분할을 조작한다.</li>
-</ul>
-<p>좋은 방향이라고 느꼈다. 다만 글의 설정은 macOS 기준이었다. 나는 Windows 노트북에서 WSL을 쓰고 있으니, Windows + WSL 기준으로 다시 맞춰야 했다.</p>
-<h2 id="목표">
-  목표
-  <a class="heading-anchor" href="#%eb%aa%a9%ed%91%9c" aria-label="목표 바로가기">#</a>
-</h2>
-<p>내가 원한 건 이 정도였다.</p>
-<ul>
-<li>Alacritty를 실행하면 PowerShell이 아니라 WSL로 바로 들어간다.</li>
-<li>WSL에 들어가면 tmux 세션에 자동으로 붙는다.</li>
-<li>tmux window를 터미널 탭처럼 쓴다.</li>
-<li>tmux pane을 화면 분할처럼 쓴다.</li>
-<li>단축키는 Windows에서 쓰기 편하게 <code>Ctrl + Shift</code> 조합으로 맞춘다.</li>
-</ul>
-<p>핵심은 Alacritty 자체를 복잡하게 만들지 않는 것이다. 부족한 기능은 tmux에 맡긴다.</p>
-<h2 id="alacritty에서-wsl과-tmux-실행하기">
-  Alacritty에서 WSL과 tmux 실행하기
-  <a class="heading-anchor" href="#alacritty%ec%97%90%ec%84%9c-wsl%ea%b3%bc-tmux-%ec%8b%a4%ed%96%89%ed%95%98%ea%b8%b0" aria-label="Alacritty에서 WSL과 tmux 실행하기 바로가기">#</a>
-</h2>
-<h3 id="설정-파일-위치">
-  설정 파일 위치
-  <a class="heading-anchor" href="#%ec%84%a4%ec%a0%95-%ed%8c%8c%ec%9d%bc-%ec%9c%84%ec%b9%98" aria-label="설정 파일 위치 바로가기">#</a>
-</h3>
-<p>Windows에서 Alacritty 설정 파일은 보통 여기에 둔다.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">C:\Users\&lt;사용자&gt;\AppData\Roaming\alacritty\alacritty.toml
-</span></span></code></pre></div><p>내 환경에서는 다음 경로였다.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">C:\Users\MZ02- BONGIK\AppData\Roaming\alacritty\alacritty.toml
-</span></span></code></pre></div><h3 id="tmux-세션에-바로-붙기">
-  tmux 세션에 바로 붙기
-  <a class="heading-anchor" href="#tmux-%ec%84%b8%ec%85%98%ec%97%90-%eb%b0%94%eb%a1%9c-%eb%b6%99%ea%b8%b0" aria-label="tmux 세션에 바로 붙기 바로가기">#</a>
-</h3>
-<p>먼저 Alacritty가 실행될 때 WSL로 들어가고, 바로 tmux <code>main</code> 세션에 붙게 했다.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">terminal</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">shell</span> <span class="p">=</span> <span class="p">{</span> <span class="nx">program</span> <span class="p">=</span> <span class="s2">&#34;wsl.exe&#34;</span><span class="p">,</span> <span class="nx">args</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;--cd&#34;</span><span class="p">,</span> <span class="s2">&#34;~&#34;</span><span class="p">,</span> <span class="s2">&#34;-e&#34;</span><span class="p">,</span> <span class="s2">&#34;tmux&#34;</span><span class="p">,</span> <span class="s2">&#34;new-session&#34;</span><span class="p">,</span> <span class="s2">&#34;-A&#34;</span><span class="p">,</span> <span class="s2">&#34;-s&#34;</span><span class="p">,</span> <span class="s2">&#34;main&#34;</span><span class="p">]</span> <span class="p">}</span>
-</span></span></code></pre></div><p>중요한 부분은 <code>tmux new-session -A -s main</code>이다. <code>-s main</code>은 세션 이름을 <code>main</code>으로 두는 옵션이고, <code>-A</code>는 이미 <code>main</code> 세션이 있으면 새로 만들지 않고 바로 붙는다.</p>
-<p>즉 Alacritty를 여러 번 열어도 같은 tmux 세션을 이어서 쓸 수 있다.</p>
-<h2 id="탭처럼-쓰기">
-  탭처럼 쓰기
-  <a class="heading-anchor" href="#%ed%83%ad%ec%b2%98%eb%9f%bc-%ec%93%b0%ea%b8%b0" aria-label="탭처럼 쓰기 바로가기">#</a>
-</h2>
-<p>Alacritty에는 탭이 없다.
-대신 tmux window를 탭처럼 쓰면 된다.</p>
-<h3 id="alacritty-단축키">
-  Alacritty 단축키
-  <a class="heading-anchor" href="#alacritty-%eb%8b%a8%ec%b6%95%ed%82%a4" aria-label="Alacritty 단축키 바로가기">#</a>
-</h3>
-<p>자주 쓰는 기능은 Alacritty 단축키로 바로 동작하게 했다.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">keyboard</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">bindings</span> <span class="p">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;T&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u0011c&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;W&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u0011X&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;!&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u00111&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;@&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u00112&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;#&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u00113&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;$&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u00114&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;%&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u00115&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;^&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u00116&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;&amp;&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u00117&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;*&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u00118&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;(&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u00119&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;E&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u0011w&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">]</span>
-</span></span></code></pre></div><p>단축키는 이렇게 잡았다.</p>
-<ul>
-<li>Ctrl + Shift + t: 새 탭 생성</li>
-<li>Ctrl + Shift + w: 현재 pane 닫기</li>
-<li>Ctrl + Shift + 1<del>9: 1</del>9번 탭으로 이동</li>
-<li>Ctrl + Shift + e: 탭 목록 보기</li>
-</ul>
-<p>Windows 키보드에서는 Shift + 1이 !가 되는 식으로 숫자와 Shift 조합이 기호 문자로 들어간다. Alacritty 키 바인딩도 이 문자 기준으로 맞춰야 해서 설정에는 1 대신 !, @, # 같은 문자를 적었다.</p>
-<h3 id="tmux-window-설정">
-  tmux window 설정
-  <a class="heading-anchor" href="#tmux-window-%ec%84%a4%ec%a0%95" aria-label="tmux window 설정 바로가기">#</a>
-</h3>
-<p>tmux 쪽에는 window 번호를 1부터 시작하도록 설정했다.</p>
-<pre tabindex="0"><code class="language-tmux" data-lang="tmux">set -g base-index 1
-setw -g pane-base-index 1
-set-option -g renumber-windows on
-bind c new-window -c &#34;#{pane_current_path}&#34;
-</code></pre><p>renumber-windows on을 켜두면 중간 탭을 닫아도 번호가 다시 정리된다. 탭처럼 쓰려면 이 편이 훨씬 자연스럽다. 새 탭도 현재 작업 디렉터리에서 열리도록 했다. 프로젝트 폴더에서 새 탭을 열었는데 홈 디렉터리로 돌아가 있으면 흐름이 자주 끊기기 때문이다.</p>
-<h2 id="화면-분할처럼-쓰기">
-  화면 분할처럼 쓰기
-  <a class="heading-anchor" href="#%ed%99%94%eb%a9%b4-%eb%b6%84%ed%95%a0%ec%b2%98%eb%9f%bc-%ec%93%b0%ea%b8%b0" aria-label="화면 분할처럼 쓰기 바로가기">#</a>
-</h2>
-<p>화면 분할도 tmux pane으로 처리했다.</p>
-<h3 id="분할-단축키">
-  분할 단축키
-  <a class="heading-anchor" href="#%eb%b6%84%ed%95%a0-%eb%8b%a8%ec%b6%95%ed%82%a4" aria-label="분할 단축키 바로가기">#</a>
-</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;ArrowLeft&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u0011%&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;ArrowRight&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u0011%&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;ArrowUp&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u0011\&#34;&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span> <span class="nx">key</span> <span class="p">=</span> <span class="s2">&#34;ArrowDown&#34;</span><span class="p">,</span> <span class="nx">mods</span> <span class="p">=</span> <span class="s2">&#34;Control|Shift&#34;</span><span class="p">,</span> <span class="nx">chars</span> <span class="p">=</span> <span class="s2">&#34;\u0011\&#34;&#34;</span> <span class="p">},</span>
-</span></span></code></pre></div><p>단축키는 이렇게 쓴다.</p>
-<ul>
-<li>Ctrl + Shift + ←: 좌우 분할</li>
-<li>Ctrl + Shift + →: 좌우 분할</li>
-<li>Ctrl + Shift + ↑: 상하 분할</li>
-<li>Ctrl + Shift + ↓: 상하 분할</li>
-</ul>
-<p>좌우와 상하를 d, s 같은 문자로 외우기보다 방향키로 묶는 편이 더 직관적이었다. tmux 설정은 그대로 두고, Alacritty가 tmux prefix와 분할 키를 보내는 방식만 바꿨다.</p>
-<h3 id="prefix-key">
-  prefix key
-  <a class="heading-anchor" href="#prefix-key" aria-label="prefix key 바로가기">#</a>
-</h3>
-<p>pane 이동은 Alacritty 단축키로 우회하지 않고 tmux 기본 방식으로 쓴다.</p>
-<ul>
-<li>Ctrl + q -&gt; o: 다음 pane으로 이동</li>
-<li>Ctrl + q -&gt; Ctrl + o: pane 순서 전환</li>
-</ul>
-<h3 id="새로운-pane-생성">
-  새로운 pane 생성
-  <a class="heading-anchor" href="#%ec%83%88%eb%a1%9c%ec%9a%b4-pane-%ec%83%9d%ec%84%b1" aria-label="새로운 pane 생성 바로가기">#</a>
-</h3>
-<p>tmux에서는 새 pane이 현재 작업 디렉터리에서 열리도록 했다.</p>
-<pre tabindex="0"><code class="language-tmux" data-lang="tmux">bind % split-window -h -c &#34;#{pane_current_path}&#34;
-bind &#39;&#34;&#39; split-window -v -c &#34;#{pane_current_path}&#34;
-bind-key X confirm-before -p &#34;kill pane? (y/n)&#34; kill-pane
-</code></pre><p>이 설정을 하지 않으면 새 pane이 홈 디렉터리에서 열려서 흐름이 자주 끊긴다. 터미널을 자주 나누는 사람에게는 꽤 중요한 부분이다. pane을 닫을 때는 실수로 날리지 않도록 한 번 확인하게 했다.</p>
-<h2 id="pane-크기-조절">
-  pane 크기 조절
-  <a class="heading-anchor" href="#pane-%ed%81%ac%ea%b8%b0-%ec%a1%b0%ec%a0%88" aria-label="pane 크기 조절 바로가기">#</a>
-</h2>
-<h3 id="마우스로-조절">
-  마우스로 조절
-  <a class="heading-anchor" href="#%eb%a7%88%ec%9a%b0%ec%8a%a4%eb%a1%9c-%ec%a1%b0%ec%a0%88" aria-label="마우스로 조절 바로가기">#</a>
-</h3>
-<p>pane 크기 조절은 단축키를 따로 두지 않고 마우스로 처리한다. tmux에서 마우스를 켜두면 pane 경계선을 직접 잡아당길 수 있다.</p>
-<pre tabindex="0"><code class="language-tmux" data-lang="tmux">set -g mouse on
-</code></pre><p>분할은 키보드로 빠르게 만들고, 크기 조절은 눈으로 보면서 마우스로 맞추는 편이 지금 방식에는 더 편하다.</p>
-<h2 id="tmux-상태바-위치">
-  tmux 상태바 위치
-  <a class="heading-anchor" href="#tmux-%ec%83%81%ed%83%9c%eb%b0%94-%ec%9c%84%ec%b9%98" aria-label="tmux 상태바 위치 바로가기">#</a>
-</h2>
-<h3 id="상태바를-위로-올리기">
-  상태바를 위로 올리기
-  <a class="heading-anchor" href="#%ec%83%81%ed%83%9c%eb%b0%94%eb%a5%bc-%ec%9c%84%eb%a1%9c-%ec%98%ac%eb%a6%ac%ea%b8%b0" aria-label="상태바를 위로 올리기 바로가기">#</a>
-</h3>
-<p>tmux 아래쪽에 있던 상태바는 위로 올렸다.
-보통 tmux status bar 또는 status line이라고 부른다.</p>
-<pre tabindex="0"><code class="language-tmux" data-lang="tmux">set -g status-position top
-set -g status-left &#34;#{?client_prefix,#[reverse] PREFIX #[default],} #S &#34;
-</code></pre><p>상태바가 위에 있으면 터미널 탭을 보는 느낌에 조금 더 가깝다. 그리고 Ctrl + q를 눌렀을 때 왼쪽에 PREFIX가 표시되도록 했다. 지금 입력이 tmux 명령으로 들어갈 차례인지 눈으로 확인할 수 있어서 편하다.</p>
-<h2 id="정리">
-  정리
-  <a class="heading-anchor" href="#%ec%a0%95%eb%a6%ac" aria-label="정리 바로가기">#</a>
-</h2>
-<p>결국 한 일은 Alacritty에 없는 기능을 억지로 추가한 게 아니다.</p>
-<p>Alacritty는 빠르고 단순한 터미널로 두고, 탭과 화면 분할은 tmux에 맡겼다. Windows + WSL 환경에서 쓰기 편하도록 실행 방식과 단축키만 연결했다.</p>
-<p>지금 기준으로는 꽤 만족스럽다. WezTerm처럼 많은 기능을 한 번에 제공하는 도구도 좋지만, 성능이 애매한 노트북에서는 이렇게 역할을 나눠 쓰는 방식이 더 가볍게 느껴진다.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>Spring Batch 돌아가게만 말고, 흐름으로 이해하기</title>
-			<link>https://angrybong.github.io/spring-batch-deepdive/</link>
-			<pubDate>Sun, 26 May 2024 00:00:00 +0000</pubDate><author>AngryBong</author><guid>https://angrybong.github.io/spring-batch-deepdive/</guid>
-			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<p><img src="/images/Gemini_Generated_Image_v0ys7sv0ys7sv0ys_lowsize.png" alt="공부" title="공부"></p>
-<p>Spring Batch를 충분히 이해하지 못한 채 실무에서 운영하다 보면 비슷한 느낌을 받는다.</p>
-<p>블로그나 공식 문서를 따라 <code>Job</code>, <code>Step</code>, <code>Chunk</code>를 붙여서 일단 돌아가게는 만들 수 있다.
-근데 막상 뭔가 이상해지면 왜 그런지 감이 안 온다.</p>
-<p>그 답답함에서 시작한 글이다.</p>
-<h2 id="왜-이렇게-막힐까">
-  왜 이렇게 막힐까
-  <a class="heading-anchor" href="#%ec%99%9c-%ec%9d%b4%eb%a0%87%ea%b2%8c-%eb%a7%89%ed%9e%90%ea%b9%8c" aria-label="왜 이렇게 막힐까 바로가기">#</a>
-</h2>
-<p>Spring Batch를 한 줄로 표현하면 “데이터를 나눠 읽고, 처리하고, 다시 돌릴 수 있게 만드는 흐름”이다.
-이걸 흐름으로 안 보고 기능 목록처럼만 보면, 성능은 왜 느려지는지, 실패한 작업은 어디서부터 다시 해야 하는지, 테스트는 왜 이렇게 귀찮은지 전부 흐릿해진다.</p>
-<h2 id="앞으로-뭘-볼-건가">
-  앞으로 뭘 볼 건가
-  <a class="heading-anchor" href="#%ec%95%9e%ec%9c%bc%eb%a1%9c-%eb%ad%98-%eb%b3%bc-%ea%b1%b4%ea%b0%80" aria-label="앞으로 뭘 볼 건가 바로가기">#</a>
-</h2>
-<p>이제 작성할 포스트들에서는 그 흐름을 제대로 짚어보려 한다.</p>
-<ul>
-<li><code>Job</code>과 <code>Step</code>이 어떻게 엮이는지</li>
-<li><code>Chunk</code>가 왜 중요한지</li>
-<li><code>skip</code>과 <code>retry</code>가 어디까지 책임지는지</li>
-<li>배치가 왜 실무에서 자꾸 까다로워지는지</li>
-</ul>
-<p>이런 것들을 하나씩 정리해볼 생각이다.</p>
-]]></content>
-		</item>
-		
-	</channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AngryBong</title>
+    <link>https://angrybong.github.io/</link>
+    <description>Recent content on AngryBong</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://angrybong.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SAP RFC 연동 방식에 대하여</title>
+      <link>https://angrybong.github.io/sap-rfc-methods/</link>
+      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://angrybong.github.io/sap-rfc-methods/</guid>
+      
+      <description>&lt;p&gt;SAP RFC 연동을 처음 보면 용어부터 헷갈린다.&lt;/p&gt;
+&lt;p&gt;RFC라는 말은 많이 보이는데, 조금 더 들어가면 &lt;code&gt;sRFC&lt;/code&gt;, &lt;code&gt;aRFC&lt;/code&gt;, &lt;code&gt;tRFC&lt;/code&gt;, &lt;code&gt;qRFC&lt;/code&gt;, &lt;code&gt;bgRFC&lt;/code&gt; 같은 이름이 나온다.
+다 비슷하게 SAP와 외부 시스템이 함수를 호출하는 방식처럼 보이는데, 막상 각각의 차이를 설명하려고 하면 말이 잘 정리되지 않는다.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>가벼운 터미널을 찾다가 Alacritty에 tmux를 붙였다</title>
+      <link>https://angrybong.github.io/alacritty-windows-wsl-tmux/</link>
+      <pubDate>Mon, 08 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://angrybong.github.io/alacritty-windows-wsl-tmux/</guid>
+      
+      <description>&lt;p&gt;WezTerm을 한동안 잘 쓰고 있었다. 기능도 많고 설정도 편했다. 문제는 성능이 좋지 않은 윈도우 노트북이었다. 가끔 CPU가 생각보다 높게 올라갔다. 터미널 하나 때문에 노트북이 버거워지면 계속 신경 쓰이게 된다. 그래서 다른 터미널을 찾다가 Alacritty를 알게 됐다.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Spring Batch 돌아가게만 말고, 흐름으로 이해하기</title>
+      <link>https://angrybong.github.io/spring-batch-deepdive/</link>
+      <pubDate>Sun, 26 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://angrybong.github.io/spring-batch-deepdive/</guid>
+      
+      <description>&lt;p&gt;&lt;img src=&#34;https://angrybong.github.io/images/Gemini_Generated_Image_v0ys7sv0ys7sv0ys_lowsize.png&#34; alt=&#34;공부&#34; title=&#34;공부&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Spring Batch를 충분히 이해하지 못한 채 실무에서 운영하다 보면 비슷한 느낌을 받는다.&lt;/p&gt;
+&lt;p&gt;블로그나 공식 문서를 따라 &lt;code&gt;Job&lt;/code&gt;, &lt;code&gt;Step&lt;/code&gt;, &lt;code&gt;Chunk&lt;/code&gt;를 붙여서 일단 돌아가게는 만들 수 있다.
+근데 막상 뭔가 이상해지면 왜 그런지 감이 안 온다.&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
 </rss>
