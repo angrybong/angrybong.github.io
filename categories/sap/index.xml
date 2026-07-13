@@ -4,21 +4,16 @@
     <title>SAP on AngryBong</title>
     <link>https://angrybong.github.io/categories/sap/</link>
     <description>Recent content in SAP on AngryBong</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ko-KR</language>
-    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://angrybong.github.io/categories/sap/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://angrybong.github.io/categories/sap/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SAP RFC 연동 방식에 대하여</title>
       <link>https://angrybong.github.io/sap-rfc-methods/</link>
       <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
       <guid>https://angrybong.github.io/sap-rfc-methods/</guid>
-      
-      <description>&lt;p&gt;SAP RFC 연동을 처음 보면 용어부터 헷갈린다.&lt;/p&gt;
-&lt;p&gt;RFC라는 말은 많이 보이는데, 조금 더 들어가면 &lt;code&gt;sRFC&lt;/code&gt;, &lt;code&gt;aRFC&lt;/code&gt;, &lt;code&gt;tRFC&lt;/code&gt;, &lt;code&gt;qRFC&lt;/code&gt;, &lt;code&gt;bgRFC&lt;/code&gt; 같은 이름이 나온다.
-다 비슷하게 SAP와 외부 시스템이 함수를 호출하는 방식처럼 보이는데, 막상 각각의 차이를 설명하려고 하면 말이 잘 정리되지 않는다.&lt;/p&gt;</description>
-      
+      <description>&lt;p&gt;SAP RFC 연동을 처음 보면 용어부터 헷갈린다.&lt;/p&gt;&#xA;&lt;p&gt;RFC라는 말은 많이 보이는데, 조금 더 들어가면 &lt;code&gt;sRFC&lt;/code&gt;, &lt;code&gt;aRFC&lt;/code&gt;, &lt;code&gt;tRFC&lt;/code&gt;, &lt;code&gt;qRFC&lt;/code&gt;, &lt;code&gt;bgRFC&lt;/code&gt; 같은 이름이 나온다.&#xA;다 비슷하게 SAP와 외부 시스템이 함수를 호출하는 방식처럼 보이는데, 막상 각각의 차이를 설명하려고 하면 말이 잘 정리되지 않는다.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

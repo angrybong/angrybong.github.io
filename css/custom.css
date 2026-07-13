@@ -1,0 +1,185 @@
+@font-face {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 45 920;
+  font-display: swap;
+  src: url("/fonts/PretendardVariable.woff2") format("woff2-variations");
+}
+
+/* base */
+body {
+  background-image: url('/img/geometry2.png');
+  color: #272625;
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-size: 17px;
+  line-height: 1.78;
+  word-break: keep-all;
+}
+
+p, a, button, li, table, thead, tbody, th, tr, td, input, textarea, select, option {
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Patrick Hand SC", "Pretendard", sans-serif;
+  letter-spacing: 0;
+  line-height: 1.35;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+main {
+  min-width: 0;
+}
+
+/* anchors */
+a,
+a:visited {
+  color: rgb(0, 0, 238);
+  background-image: none;
+  text-decoration: underline;
+}
+
+/* navbar */
+nav a,
+nav a:visited {
+  color: #41403e;
+  text-decoration: none;
+}
+
+/* blockquote */
+blockquote {
+  font-style: italic;
+}
+
+/* post list */
+.post-list {
+  font-size: 1.75em;
+  line-height: 1.35;
+}
+.summary {
+  margin-bottom: 0.1em; 
+}
+.post-summary {
+  margin-top: 0.25rem;
+}
+
+/* post single */
+.post-title {
+  margin-bottom: 0.1em;
+  font-size: clamp(2.2rem, 7vw, 4rem);
+}
+.post-meta {
+  margin-top: 0;
+  color: #6b6863;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+.post-content {
+  max-width: 780px;
+}
+.post-content h2 {
+  margin-top: 2.4em;
+  font-size: 2rem;
+}
+.post-content h3 {
+  margin-top: 2em;
+  font-size: 1.5rem;
+}
+.post-content img,
+.post-content figure,
+.post-content .highlight,
+.post-content .table-scroll {
+  max-width: 880px;
+}
+.post-content blockquote {
+  border-left: 4px solid #41403e;
+  margin-left: 0;
+  padding: 0.2rem 1rem;
+}
+
+/* toc */
+.toc {
+  padding: 1em;
+  margin-top: 1em;
+  max-width: 780px;
+}
+.toc h2 {
+  font-size: 1.3em;
+}
+.toc nav > ul {
+  margin-bottom: 0;
+}
+
+/* code */
+code, pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  word-break: normal;
+}
+code:not(pre code) {
+  padding: 0.12em 0.3em;
+  border: 1px solid #d5d2cc;
+  background: #f5f3ef;
+  font-size: 0.88em;
+}
+.highlight {
+  margin: 2rem 0;
+}
+.highlight pre {
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  border-radius: 3px;
+  background: #272a30 !important;
+  color: #c9d1d9 !important;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.18);
+}
+.chroma { color: #c9d1d9; }
+.chroma .p, .chroma .o { color: #c9d1d9; }
+.chroma .nx, .chroma .na, .chroma .nl, .chroma .nt { color: #7ee787; }
+.chroma .s, .chroma .s1, .chroma .s2, .chroma .sa, .chroma .sb, .chroma .sc,
+.chroma .sd, .chroma .se, .chroma .sh, .chroma .si, .chroma .sx { color: #a5d6ff; }
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh, .chroma .mi, .chroma .mo,
+.chroma .il, .chroma .kc, .chroma .no, .chroma .nv, .chroma .vc, .chroma .vg,
+.chroma .vi, .chroma .vm { color: #79c0ff; }
+.chroma .nb, .chroma .bp { color: #ffa657; }
+.chroma .k, .chroma .kd, .chroma .kn, .chroma .kp, .chroma .kr, .chroma .kt { color: #ff7b72; }
+.chroma .nc, .chroma .nd, .chroma .ne, .chroma .nf, .chroma .fm { color: #d2a8ff; }
+.chroma .c, .chroma .c1, .chroma .ch, .chroma .cm, .chroma .cp, .chroma .cpf,
+.chroma .cs { color: #8b949e; }
+
+.comments {
+  max-width: 780px;
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #cdcccb;
+}
+
+@media only screen and (max-width: 480px) {
+  html, body { overflow-x: hidden; }
+  body { font-size: 16px; }
+  .container.paper {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+  .post,
+  .post-header,
+  .post-title,
+  .post-meta,
+  .post-content,
+  .toc,
+  .toc a {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .post-title { font-size: 2.2rem; }
+  .post-content h2 { font-size: 1.65rem; }
+  .post-content h3 { font-size: 1.3rem; }
+  .toc { padding: 0.8rem; }
+  .toc ul { padding-left: 1.1rem; }
+}
