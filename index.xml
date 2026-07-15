@@ -6,6 +6,7 @@
     <description>Recent content on AngryBong</description>
     <generator>Hugo</generator>
     <language>ko-KR</language>
+    <copyright>© AngryBong</copyright>
     <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://angrybong.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -27,7 +28,21 @@
       <link>https://angrybong.github.io/spring-batch-deepdive/</link>
       <pubDate>Sun, 26 May 2024 00:00:00 +0000</pubDate>
       <guid>https://angrybong.github.io/spring-batch-deepdive/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://angrybong.github.io/images/Gemini_Generated_Image_v0ys7sv0ys7sv0ys_lowsize.png&#34; alt=&#34;공부&#34; title=&#34;공부&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Spring Batch를 충분히 이해하지 못한 채 실무에서 운영하다 보면 비슷한 느낌을 받는다.&lt;/p&gt;&#xA;&lt;p&gt;블로그나 공식 문서를 따라 &lt;code&gt;Job&lt;/code&gt;, &lt;code&gt;Step&lt;/code&gt;, &lt;code&gt;Chunk&lt;/code&gt;를 붙여서 일단 돌아가게는 만들 수 있다.&#xA;근데 막상 뭔가 이상해지면 왜 그런지 감이 안 온다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;img src=&#34;https://angrybong.github.io/images/Gemini_Generated_Image_v0ys7sv0ys7sv0ys_lowsize.png&#34;&#xA;  alt=&#34;책과 노트 사이에서 공부하는 거위 일러스트&#34; title=&#34;공부&#34; width=&#34;800&#34; height=&#34;436&#34;decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;Spring Batch를 충분히 이해하지 못한 채 실무에서 운영하다 보면 비슷한 느낌을 받는다.&lt;/p&gt;&#xA;&lt;p&gt;블로그나 공식 문서를 따라 &lt;code&gt;Job&lt;/code&gt;, &lt;code&gt;Step&lt;/code&gt;, &lt;code&gt;Chunk&lt;/code&gt;를 붙여서 일단 돌아가게는 만들 수 있다.&#xA;근데 막상 뭔가 이상해지면 왜 그런지 감이 안 온다.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>https://angrybong.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://angrybong.github.io/about/</guid>
+      <description>&lt;p&gt;오래 남는 기술 글을 쌓는 개인 블로그입니다.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/angrybong&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>검색</title>
+      <link>https://angrybong.github.io/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://angrybong.github.io/search/</guid>
+      <description>&lt;p&gt;제목, 태그와 본문에서 글을 검색합니다.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
